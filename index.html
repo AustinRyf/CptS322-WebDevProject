@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+        <title>Index</title> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="styles/main.css">
+
+        <script src="scripts/jquery.min.js"></script>
+        <script type="text/javascript" src="scripts/frontend.js"></script>
+        <script type="text/javascript">
+            // This is a jQuery convention to say that once all the files
+            // load, the function Smile.start() should run.
+            // This function is defined in the smiles.js
+            $(function() {
+                Frontend.start();
+            });
+        </script>
+
+</head>
+<body>
+        <header>Header placeholder</header>
+
+        <form class = 'gui'>
+          <input type = "button" class = "instructor-create-gui-button" value = "Instructor Create"/>
+          <input type = "button" class = "student-create-gui-button" value = "Student Create"/>
+          <input type = "button" class = "login-gui-button" value = "login"/>
+        </form>
+
+
+        <form class = 'instructor-create'>Faculty input form
+          <input type="text" placeholder="Faculty ID" class="instructor-id-input" name="facultyid" />
+          <input type="text" placeholder="First name" class="instructor-first-name-input" name="facultyfirstname" />
+          <input type="text" placeholder="Last name" class="instructor-last-name-input" name="facultylastname" />
+          <input type="text" placeholder="Email" class="instructor-email-input" name="facultyemail" />
+          <input type="text" placeholder="Phone" class="instructor-phone-input" name="facultyphone" />
+          <input type="text" placeholder="Office" class="instructor-office-input" name="facultyofficeinput" />
+          <input type="text" placeholder="Password" class="instructor-password-input" name="facultypasswordinput" />
+          <input type = "button" class = "instructor-create-submit" value = "Submit"/>
+          <input type = "button" class = "instructor-create-cancel" value = "Cancel"/>
+        </form>
+
+        <form class = 'student-create'>Studen input form
+          <input type="text" placeholder="Student ID" class="student-id-input" name="studentid" />
+          <input type="text" placeholder="First name" class="student-first-name-input" name="studentfirstname" />
+          <input type="text" placeholder="Last name" class="student-last-name-input" name="studentlastname" />
+          <input type="text" placeholder="Email" class="student-email-input" name="studentemail" />
+          <input type="text" placeholder="Major" class="student-major-input" name="studentmajorinput" />
+          <input type="text" placeholder="GPA" class="student-gpa-input" name="studentgpainput" />
+          <input type="text" placeholder="Graduation date" class="student-graduation-input" name="studentgraduationinput" />
+          <input type="text" placeholder="Password" class="student-password-input" name="studentpasswordinput" />
+          <input type = "button" class = "student-create-submit" value = "Submit"/>
+          <input type = "button" class = "student-create-cancel" value = "Cancel"/>
+        </form>
+
+        <form class = 'login'>Login form
+          <input type="text" placeholder="Username" class="login-username" name="loginusername" />
+          <input type="text" placeholder="Password" class="login-password" name="loginpassword" />
+          <select class ="user-type">
+            <option value='0'>Student</option>
+            <option value='1'>Instructor</option>
+          </select>
+          <input type = "button" class = "login-submit" value = "Enter"/>
+          <input type = "button" class = "login-cancel" value = "Cancel"/>
+        </form>
+
+        <form class = 'instructor-view-profile'>
+        </form>
+
+        <form class = 'student-view-profile'>
+        </form>
+
+        <form class = 'instructor-add-course'>
+        </form>
+
+        <article class "student-profile-template">
+        </section>
+        <article class "instructor-profile-template">
+        </section>
+
+</body>
+</html>
