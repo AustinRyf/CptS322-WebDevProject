@@ -21,7 +21,7 @@ var Frontend = (function() {
             type: 'POST',
             url: apiUrl + url,
             data: JSON.stringify(data),
-            contentType: "test/plain",
+            contentType: "application/json",
             dataType: "json",
             success: onSuccess,
             error: onFailure
@@ -38,6 +38,21 @@ var Frontend = (function() {
         $('.instructor-create').show();
     };
 
+    var showInstructorProfile = function() {
+        $('.gui').hide();
+        $('.instructor-view-profile').show();
+    };
+
+    var showStudentProfile = function() {
+        $('.gui').hide();
+        $('.student-view-profile').show();
+    };
+
+    var showAddClass = function() {
+        $('.gui').hide();
+        $('.instructor-add-course').show();
+    };
+
     var showStudentCreate = function() {
         $('.gui').hide();
         $('.student-create').show();
@@ -52,6 +67,25 @@ var Frontend = (function() {
         e.preventDefault();
 
         var instructor = {};
+
+        instructor.facultyId = $('.instructor-id-input').val();
+        instructor.firstName = $('.instructor-first-name-input').val();
+        instructor.lastName = $('.instructor-last-name-input').val();
+        instructor.email = $('.instructor-email-input').val();
+        instructor.phone = $('.instructor-phone-input').val();
+        instructor.office = $('.instructor-office-input').val();
+        instructor.password = $('.instructor-password-input').val();
+
+        var onSuccess = function(data) {
+            console.log(data);
+            $(e.target.parentElement).hide();
+            $('.gui').show();
+        };
+
+        var onFailure = function() {
+            console.log("POST request failed\n");
+        };
+        makePostRequest("api/instructor", instructor, onSuccess, onFailure);
     };
 
     var createStudent = function(e) {
@@ -59,7 +93,7 @@ var Frontend = (function() {
 
         var student = {}; 
 
-        student.id = $('.student-id-input').val();
+        student.studentId = $('.student-id-input').val();
         student.firstName = $('.student-first-name-input').val();
         student.lastName = $('.student-last-name-input').val();
         student.email = $('.student-email-input').val();
@@ -70,13 +104,14 @@ var Frontend = (function() {
 
         var onSuccess = function(data) {
             console.log(data);
-            cancel();
+            $(e.target.parentElement).hide();
+            $('.gui').show();
         };
 
         var onFailure = function() {
             console.log("POST request failed\n");
         };
-        makePostRequest(apiUrl + "api/student", student, onSuccess, onFailure);
+        makePostRequest("api/student", student, onSuccess, onFailure);
     };
 
     var start = function() {
@@ -89,16 +124,24 @@ var Frontend = (function() {
 
         $('.instructor-create-cancel').click(cancel);
         $('.student-create-cancel').click(cancel);
-        $('.login').click(cancel);
+        $('.login-cancel').click(cancel); 
+        $('.instructor-profile-back').click(cancel);
+        $('.student-profile-back').click(cancel);
+        $('.add-course-cancel').click(cancel);
 
 
         $('.instructor-create-gui-button').click(showInstructorCreate);
         $('.student-create-gui-button').click(showStudentCreate);
         $('.login-gui-button').click(showLogin);
+        $('.instructor-view-profile-gui-button').click(showInstructorProfile);
+        $('.student-view-profile-gui-button').click(showStudentProfile);
+        $('.add-course-gui-button').click(showAddClass);
+
 
 
         $('.instructor-create-submit').click(createInstructor);
         $('.student-create-submit').click(createStudent);
+
      };
 
 
