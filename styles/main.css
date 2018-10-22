@@ -1,0 +1,191 @@
+header {
+    width: 100%;
+    display: block;
+    padding-right: 15px;
+    padding-left: 15px;
+    box-sizing: border-box;
+    position: fixed;
+    background-color: white;
+}
+
+.headerLogo {
+    color: #717170;
+    line-height: 3;
+    height: 120px;
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 0.04375em;
+    /*text-transform: uppercase;*/
+    font-size: 40px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.body {
+    display: inline-block;
+    font-family: "Poppins", sans-serif;
+}
+
+.background {
+    margin-top: 121px;
+    display: inline-block;
+    background-color: #d9d9d9;
+    height: 800px;
+    background-position: 100% 100%;
+    background-size: cover;
+    /*position: absolute;*/
+    width: 100%;
+    border: none;
+    color: transparent;
+    background-repeat: no-repeat;
+}
+
+/*.container {
+    height: 490px;
+    width: 450px;
+    display: block;
+    padding-bottom: 80px;
+    padding-right: 100px;
+    padding-left: 100px;
+    padding-top: 100px;
+    position: center;
+    background-color: #EFFAEE;
+    background: linear-gradient(#bf4059, #A60F2D);
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    border-width: 2px;
+    border-style: solid;
+    border-color: cadetblue;
+    border-radius: 10px;
+}*/
+
+.banner {
+    margin-left: 2%;
+    float: left;
+    height: 100%;
+    width: 200px;
+    display: block;
+    background-color: #EFFAEE;
+    background: linear-gradient(#bf4059, #A60F2D);
+}
+
+.logo {
+    position:center;
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-top: 50px;
+    color: transparent;
+    background-repeat: no-repeat;
+    background-size: 150px 150px;
+    height: 100%;
+    background-image: url('../images/WSULogoBorder1.png');
+}
+
+/*.gui {
+    margin-left: 15px;
+    float: left;
+    width: 350px;
+}
+
+.instructor-create {
+    margin-left: 15px;
+    float: left;
+    width: 350px;
+}
+
+.student-create {
+    margin-left: 15px;
+    float: left;
+    width: 350px;
+}
+
+.login {
+    margin-left: 15px;
+    float: left;
+    width: 350px;
+}*/
+
+.profileContainer {
+    margin-left: 15px;
+    float: left;
+    width: 350px;
+}
+
+.instructor-create-gui-button {
+    display: block;
+}
+
+.inputProfileText {
+    margin: auto;
+    font-family: "Poppins", sans-serif;
+    border: 1px solid #bdc7d8;
+    border-color: rgb(189, 199, 216);
+    font-size: 18px;
+    padding: 8px 10px;
+    border-color: #bdc7d8;
+    border-radius: 5px;
+    width: 350px;
+    display: block;
+    /*want in separate area?*/
+    margin-bottom: 12px;
+}
+
+.message {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #666666;
+    font-family: "Poppins", sans-serif;
+}
+
+.BigMessage {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 30px;
+}
+
+.SmallMessage {
+    margin-top: 30px;
+    font-size: 20px;
+}
+
+.myButton {
+    /*text-transform:uppercase;*/
+    background: repeating-linear-gradient(#f2f2f2, #e6e6e6);
+    background-color: #f2f2f2;
+    border-style: solid;
+    border-color: #a6a6a6;
+    border-width: 2px;
+    color: #595959;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration: none;
+    text-align: center;
+    position: center;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    display: block;
+    width: 300px;
+    padding: 15px;
+}
+
+.myButton:hover {
+    background: repeating-linear-gradient(#ffffff, #f2f2f2);
+}
+
+.myButton:active {
+    background: repeating-linear-gradient(#bfbfbf, #d9d9d9);
+}
+
+.user-type {
+    font-family: "Poppins", sans-serif;
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px;
+    margin-bottom: 20px;
+}

@@ -19,75 +19,107 @@
 
 </head>
 <body>
-        <header>Header placeholder</header>
+    <header>
+        
+        <div class="headerLogo">
+            HeaderPlaceholder
+        </div>
 
-        <form class = 'gui'>
-          <input type = "button" class = "instructor-create-gui-button" value = "Instructor Create"/>
-          <input type = "button" class = "student-create-gui-button" value = "Student Create"/>
-          <input type = "button" class = "login-gui-button" value = "login"/>
-          <input type = "button" class = "instructor-view-profile-gui-button" value = "Instructor view profile"/>
-          <input type = "button" class = "student-view-profile-gui-button" value = "Student view profile"/>
-          <input type = "button" class = "add-course-gui-button" value = "Add class"/>
+    </header>
+    
+    <div class="background">
+        <div class="banner">
+            <div class="logo">
+                
+            </div>
+        </div>
+        <div class="container">
+
+            
+            <form class='profileContainer gui'>
+                <div class="message BigMessage">Welcome to AppName!</div>
+
+                <input type="button" class="myButton login-gui-button" value="Login" />
+
+                <div class="message SmallMessage">New Instructor?</div>
+                <input type="button" class="myButton instructor-create-gui-button" value="Create Instructor Profile" />
+
+                <div class="message SmallMessage">New Student?</div>
+                <input type="button" class="myButton student-create-gui-button" value="Create Student Profile" />
+
+                <div class="message SmallMessage">TESTING ITERATION1:</div>
+                <input type="button" class="myButton instructor-view-profile-gui-button" value="Instructor view profile" />
+                <input type="button" class="myButton student-view-profile-gui-button" value="Student view profile" />
+                <input type="button" class="myButton add-course-gui-button" value="Add class" />
+            </form>
+        </div>
+
+
+        <form class='profileContainer instructor-create'>
+            <div class="message BigMessage">Enter your instructor profile info...</div>
+            <input type="text" placeholder="Faculty ID" class="inputProfileText instructor-id-input" name="facultyid" />
+            <input type="text" placeholder="First name" class="inputProfileText instructor-first-name-input" name="facultyfirstname" />
+            <input type="text" placeholder="Last name" class="inputProfileText instructor-last-name-input" name="facultylastname" />
+            <input type="text" placeholder="Email" class="inputProfileText instructor-email-input" name="facultyemail" />
+            <input type="text" placeholder="Phone" class="inputProfileText instructor-phone-input" name="facultyphone" />
+            <input type="text" placeholder="Office" class="inputProfileText instructor-office-input" name="facultyofficeinput" />
+            <input type="text" placeholder="Password" class="inputProfileText instructor-password-input" name="facultypasswordinput" />
+            <input type="button" class="myButton instructor-create-submit" value="Submit" />
+            <input type="button" class="myButton instructor-create-cancel" value="Cancel" />
         </form>
 
-
-        <form class = 'instructor-create'>Faculty input form
-          <input type="text" placeholder="Faculty ID" class="instructor-id-input" name="facultyid" />
-          <input type="text" placeholder="First name" class="instructor-first-name-input" name="facultyfirstname" />
-          <input type="text" placeholder="Last name" class="instructor-last-name-input" name="facultylastname" />
-          <input type="text" placeholder="Email" class="instructor-email-input" name="facultyemail" />
-          <input type="text" placeholder="Phone" class="instructor-phone-input" name="facultyphone" />
-          <input type="text" placeholder="Office" class="instructor-office-input" name="facultyofficeinput" />
-          <input type="text" placeholder="Password" class="instructor-password-input" name="facultypasswordinput" />
-          <input type = "button" class = "instructor-create-submit" value = "Submit"/>
-          <input type = "button" class = "instructor-create-cancel" value = "Cancel"/>
+        <form class='profileContainer student-create'>
+            <div class="message BigMessage">Enter your student profile info...</div>
+            <input type="text" placeholder="Student ID" class="inputProfileText student-id-input" name="studentid" />
+            <input type="text" placeholder="First name" class="inputProfileText student-first-name-input" name="studentfirstname" />
+            <input type="text" placeholder="Last name" class="inputProfileText student-last-name-input" name="studentlastname" />
+            <input type="text" placeholder="Email" class="inputProfileText student-email-input" name="studentemail" />
+            <input type="text" placeholder="Major" class="inputProfileText student-major-input" name="studentmajorinput" />
+            <input type="text" placeholder="GPA" class="inputProfileText student-gpa-input" name="studentgpainput" />
+            <input type="text" placeholder="Graduation date" class="inputProfileText student-graduation-input" name="studentgraduationinput" />
+            <input type="text" placeholder="Password" class="inputProfileText student-password-input" name="studentpasswordinput" />
+            <input type="button" class="myButton student-create-submit" value="Submit" />
+            <input type="button" class="myButton student-create-cancel" value="Cancel" />
         </form>
 
-        <form class = 'student-create'>Studen input form
-          <input type="text" placeholder="Student ID" class="student-id-input" name="studentid" />
-          <input type="text" placeholder="First name" class="student-first-name-input" name="studentfirstname" />
-          <input type="text" placeholder="Last name" class="student-last-name-input" name="studentlastname" />
-          <input type="text" placeholder="Email" class="student-email-input" name="studentemail" />
-          <input type="text" placeholder="Major" class="student-major-input" name="studentmajorinput" />
-          <input type="text" placeholder="GPA" class="student-gpa-input" name="studentgpainput" />
-          <input type="text" placeholder="Graduation date" class="student-graduation-input" name="studentgraduationinput" />
-          <input type="text" placeholder="Password" class="student-password-input" name="studentpasswordinput" />
-          <input type = "button" class = "student-create-submit" value = "Submit"/>
-          <input type = "button" class = "student-create-cancel" value = "Cancel"/>
+        <form class='profileContainer login'>
+            <div class="message BigMessage">Login...</div>
+            <input type="text" placeholder="Email" class="inputProfileText login-username" name="loginusername" />
+            <input type="text" placeholder="Password" class="inputProfileText login-password" name="loginpassword" />
+            
+            <div class="message SmallMessage">Are you a student or an instructor?</div>
+            <select class="user-type">
+                <option value='0'>Student</option>
+                <option value='1'>Instructor</option>
+            </select>
+            <input type="button" class="myButton login-submit" value="Submit" />
+            <input type="button" class="myButton login-cancel" value="Cancel" />
         </form>
 
-        <form class = 'login'>Login form
-          <input type="text" placeholder="Username" class="login-username" name="loginusername" />
-          <input type="text" placeholder="Password" class="login-password" name="loginpassword" />
-          <select class ="user-type">
-            <option value='0'>Student</option>
-            <option value='1'>Instructor</option>
-          </select>
-          <input type = "button" class = "login-submit" value = "Enter"/>
-          <input type = "button" class = "login-cancel" value = "Cancel"/>
+        <form class='instructor-view-profile'>
+            <div class="message BigMessage">Your Instructor Profile</div>
+            <input type="button" class="myButton instructor-profile-back" value="Back" />
         </form>
 
-        <form class = 'instructor-view-profile'>
-          Instructor profile information here?
-          <input type = "button" class = "instructor-profile-back" value = "Back"/>
+        <form class='student-view-profile'>
+            <div class="message BigMessage">Your Student Profile</div>
+            <input type="button" class="myButton student-profile-back" value="Back" />
         </form>
 
-        <form class = 'student-view-profile'>
-          Student profile information here?
-          <input type = "button" class = "student-profile-back" value = "Back"/>
-        </form>
-
-        <form class = 'instructor-add-course'>
-          <input type="test" placeholder="Class ID" class="class-id-input" name="classid" />
-          <input type="test" placeholder="Class Name" class="class-name-input" name="classnamne" />
-          <input type="test" placeholder="Class IDK some other information" class="class-idk-input" name="classidk" />
-          <input type = "button" class = "add-course-cancel" value = "Cancel"/>
+        <form class='instructor-add-course'>
+            <div class="message BigMessage">Add a Class</div>
+            <input type="test" placeholder="Class Catalog ID" class="inputProfileText class-id-input" name="classid" />
+            <input type="test" placeholder="Class Name" class="inputProfileText class-name-input" name="classnamne" />
+            <input type="test" placeholder="Class Description" class="inputProfileText class-idk-input" name="classidk" />
+            <input type="button" class="myButton add-course-cancel" value="Cancel" />
         </form>
 
         <article class "student-profile-template">
-        </section>
-        <article class "instructor-profile-template">
-        </section>
+            </section>
+            <article class "instructor-profile-template">
+                </section>
+
+    </div>
 
 </body>
 </html>
