@@ -79,7 +79,7 @@ var Frontend = (function() {
 
             $('.profile-name-instructor').text(data.instructor.last_name + ", " + data.instructor.first_name);
             $('.profile-email-instructor').text(data.instructor.email);
-            $('.rofile-phone-instructor').text(data.instructor.phone);
+            $('.profile-phone-instructor').text(data.instructor.phone);
             $('.profile-faculty-id').text(data.instructor.faculty_id);
             $('.profile-office-instructor').text(data.instructor.office);
         };
@@ -312,16 +312,12 @@ var Frontend = (function() {
         newData.email = $(".edit-instructor-email").val();
         newData.phone = $(".edit-phone").val();
         newData.office = $(".edit-office").val();
-    
-
+        
+        
         var onSuccess = function(data) {
             console.log(data);
             $('.edit-instructor-profile').hide();
             $('.gui').show();
-        }
-
-        var onSuccess = function(data) {
-            console.log(data);
         }
         var onFailure = function() {
 

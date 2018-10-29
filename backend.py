@@ -235,9 +235,9 @@ def editInstructor():
 	if(payload['email'] != ""):
 		row.email = payload['email']
 	if(payload['office'] != ""):
-		row.major = payload['office']
+		row.office = payload['office']
 	if(payload['phone'] != ""):
-		row.gpa = payload['phone']
+		row.phone = payload['phone']
 
 	db.session.commit();
 
