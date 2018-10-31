@@ -26,16 +26,15 @@ header {
 }
 
 .background {
+    background-image: url('../images/cub.jpg');
     margin-top: 121px;
     display: inline-block;
     background-color: #d9d9d9;
     height: 800px;
     background-position: 100% 100%;
     background-size: cover;
-    /*position: absolute;*/
     width: 100%;
     border: none;
-    /*color: transparent;*/
     background-repeat: no-repeat;
 }
 
@@ -106,9 +105,25 @@ header {
 }*/
 
 .profileContainer {
+    background: rgba(204, 204, 204, 0.8);
+    width: 400px;
+    padding: 40px;
+    margin-left:auto;
+    margin-right: auto;
+    margin-top: 30px;
+    /*background-color: #d9d9d9;
     margin-left: 15px;
-    float: left;
-    width: 350px;
+    float: left;*/
+}
+
+.big-profile-container {
+    background: rgba(204, 204, 204, 0.8);
+    width: 1000px;
+    padding: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    height: 80%;
 }
 
 .instructor-create-gui-button {
@@ -131,13 +146,17 @@ header {
 }
 
 .message {
+    
     margin-top: 10px;
     font-weight: bold;
-    color: #666666;
+    color: #490317;
+    /*medium gray:
+    color: #666666;*/
     font-family: "Poppins", sans-serif;
 }
 
 .BigMessage {
+   
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
@@ -147,8 +166,10 @@ header {
 }
 
 .SmallMessage {
+    
     margin-top: 30px;
     font-size: 20px;
+    
 }
 
 .myButton {
@@ -170,7 +191,7 @@ header {
     font-size: 16px;
     font-weight: 500;
     display: block;
-    width: 300px;
+    width: 320px;
     padding: 15px;
 }
 
@@ -189,3 +210,37 @@ header {
     padding: 10px;
     margin-bottom: 20px;
 }
+
+.view-profile {
+    
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+}
+
+.profile-attribute {
+    
+    float: left;
+    padding-left: 10px;
+    display: block;
+    font-size: 18px;
+    padding-top: 12px;
+    /*float: right;*/
+    color: #490317;
+}
+.profile-label {
+   
+   float: left;
+   clear: left;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #490317;
+}
+
+.profile-back-student {
+    margin-top: 250px;
+}
+
+.add-course-button {
+    margin-top: 200px;
+}
+
