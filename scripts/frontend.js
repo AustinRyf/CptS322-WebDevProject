@@ -103,23 +103,29 @@ var Frontend = (function() {
         };
         var onSuccess = function(data)
         {
+            console.log(data);
             if(data.status == -1)
             {
                
                 $('.gui').hide();
                 $('.login').show();
                 $('.login-message').text('Please login first.');
+                
             }
-            if(data.type == "student")
+            else if(data.type == "student")
             {
                 showStudent(data);
+                
+                $('.gui').hide();
+                $('.view-profile').show();
             }
             else 
             {
                 showInstructor(data);
+                
+                $('.gui').hide();
+                $('.view-profile').show();
             }
-            $('.gui').hide();
-            $('.view-profile').show();
         };
         var onFailure = function()
         {
@@ -238,8 +244,6 @@ var Frontend = (function() {
     		console.log(data);
     		$(e.target.parentElement).hide();
     		$('.gui').show();
-
-    		document.cookie = "test=hi";
     	};
     	var onFailure = function() {
     		console.log("Incorrect username or password!");
