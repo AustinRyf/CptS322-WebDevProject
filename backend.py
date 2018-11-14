@@ -1,6 +1,5 @@
 from flask import Flask, jsonify, request, session, make_response, render_template, redirect, url_for
 from flask_session import Session
-from flask_login import LoginManager, UserMixin, login_user, current_user
 from flask_cors import CORS, cross_origin
 from werkzeug.security import generate_password_hash, check_password_hash
 import flask_sqlalchemy as sqlalchemy

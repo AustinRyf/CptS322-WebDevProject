@@ -1,4 +1,4 @@
-header {
+heheader {
     width: 100%;
     display: block;
     padding-right: 15px;
@@ -26,16 +26,15 @@ header {
 }
 
 .background {
+    background-image: url('../images/cub.jpg');
     margin-top: 121px;
-    display: inline-block;
+    display: block;
     background-color: #d9d9d9;
     height: 800px;
     background-position: 100% 100%;
     background-size: cover;
-    /*position: absolute;*/
     width: 100%;
     border: none;
-    /*color: transparent;*/
     background-repeat: no-repeat;
 }
 
@@ -106,9 +105,26 @@ header {
 }*/
 
 .profileContainer {
+    background: rgba(204, 204, 204, 0.8);
+    width: 400px;
+    padding: 40px;
+    margin-left:auto;
+    margin-right: auto;
+    margin-top: 30px;
+    /*background-color: #d9d9d9;
     margin-left: 15px;
-    float: left;
-    width: 350px;
+    float: left;*/
+}
+
+.big-profile-container {
+    overflow: scroll;
+    background: rgba(204, 204, 204, 0.8);
+    width: 80%;
+    padding: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    height: 80%;
 }
 
 .instructor-create-gui-button {
@@ -128,27 +144,36 @@ header {
     display: block;
     /*want in separate area?*/
     margin-bottom: 12px;
+    display: block;
 }
 
 .message {
+    
     margin-top: 10px;
     font-weight: bold;
-    color: #666666;
+    color: #490317;
+    /*medium gray:
+    color: #666666;*/
     font-family: "Poppins", sans-serif;
+    display: block;
 }
 
 .BigMessage {
+    display: block;
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
     margin-bottom: 20px;
     text-align: center;
     font-size: 30px;
+    background-color: #978989;
 }
 
 .SmallMessage {
+    display: block;
     margin-top: 30px;
     font-size: 20px;
+    
 }
 
 .myButton {
@@ -170,7 +195,7 @@ header {
     font-size: 16px;
     font-weight: 500;
     display: block;
-    width: 300px;
+    width: 320px;
     padding: 15px;
 }
 
@@ -189,3 +214,71 @@ header {
     padding: 10px;
     margin-bottom: 20px;
 }
+
+.view-profile {
+    
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+}
+
+.profile-attribute {
+    
+    float: left;
+    padding-left: 10px;
+    display: block;
+    font-size: 18px;
+    padding-top: 12px;
+    /*float: right;*/
+    color: #490317;
+}
+.profile-label {
+   
+   float: left;
+   clear: left;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #490317;
+}
+
+.profile-back-student {
+    margin-top: 250px;
+}
+
+.add-course-button {
+    margin-top: 200px;
+}
+
+.courseContainer {
+    background: repeating-linear-gradient(#f2f2f2, #e6e6e6);
+    background-color: #f2f2f2;
+    border-style: solid;
+    border-color: #a6a6a6;
+    border-width: 2px;
+    color: #595959;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration: none;
+    text-align: center;
+    position: center;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    width: 100%;
+    padding: 15px;
+}
+
+.view-courses {
+	overflow-top: scroll;
+	height: 100%;
+}
+.courses{
+		height: 80%;
+}
+.course {
+	width: 100%;
+	background-color: #978989;
+	margin-bottom: 1%;
+	display: inline-block;
+	

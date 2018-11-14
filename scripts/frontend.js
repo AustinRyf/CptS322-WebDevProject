@@ -62,7 +62,7 @@ var Frontend = (function() {
     };
 
     var showLogin = function() {
-        $('.login-message').text('Log in!');
+        $('.login-message').text('Log in...');
         $('.gui').hide();
         $('.login').show();
     };
@@ -75,6 +75,7 @@ var Frontend = (function() {
 
             profile.attr('id', data.id);
 
+            $('.display-profile-student').hide();
             $('.display-profile-instructor').show();
 
             $('.profile-name-instructor').text(data.instructor.last_name + ", " + data.instructor.first_name);
@@ -91,6 +92,7 @@ var Frontend = (function() {
             profile.attr('id', data.id);
 
             $('.display-profile-instructor').hide();
+            $('.display-profile-student').show();
 
             $('.profile-name-student').text(data.student.last_name + ", " + data.student.first_name);
             $('.profile-email-student').text(data.student.email);
@@ -101,22 +103,29 @@ var Frontend = (function() {
         };
         var onSuccess = function(data)
         {
+            console.log(data);
             if(data.status == -1)
             {
+               
                 $('.gui').hide();
                 $('.login').show();
-                $('.login-message').text('Not logged in!');
+                $('.login-message').text('Please login first.');
+                
             }
-            if(data.type == "student")
+            else if(data.type == "student")
             {
                 showStudent(data);
+                
+                $('.gui').hide();
+                $('.view-profile').show();
             }
             else 
             {
                 showInstructor(data);
+                
+                $('.gui').hide();
+                $('.view-profile').show();
             }
-            $('.gui').hide();
-            $('.view-profile').show();
         };
         var onFailure = function()
         {
@@ -196,10 +205,10 @@ var Frontend = (function() {
         var newElement = $(classTemplateHTML);
 
         newElement.attr('id', course.id);
-        newElement.find('.course-name').text("Course name: " + course.course_name);
-        newElement.find('.course-title').text("Course title: " + course.title);
-        newElement.find('.course-description').text("Course description: " + course.description);
-        newElement.find('.instructor').text("Course instructor: " + course.instructor);
+        newElement.find('.course-name').text(course.course_name);
+        newElement.find('.course-title').text(course.title);
+        newElement.find('.course-description').text(course.description);
+        newElement.find('.instructor').text(course.instructor);
 
         courses.append(newElement);
     }
@@ -208,13 +217,14 @@ var Frontend = (function() {
         var onSuccess = function(data) {
             console.log(data);
 
-            $('.course').empty();
+            $('#courses').empty();
 
             for(i = 0; i < data.courses.length; i++) {
                 insertCourse(data.courses[i]);
             }
             $('.gui').hide();
-            $('.courses').show();
+            $('.view-courses').show();
+            courses.show();
         }
         var onFailure = function() {
 
@@ -235,8 +245,6 @@ var Frontend = (function() {
     		console.log(data);
     		$(e.target.parentElement).hide();
     		$('.gui').show();
-
-    		document.cookie = "test=hi";
     	};
     	var onFailure = function() {
     		console.log("Incorrect username or password!");
@@ -366,11 +374,14 @@ var Frontend = (function() {
 
         studentProfileTemplateHTML = $('.display-profile-student').outerHTML;
         instructorProfileTemplateHTML = $('.display-profile-instructor').outerHTML;
-        classTemplateHTML = $('.courses .course')[0].outerHTML;
+        classTemplateHTML = $('.course')[0].outerHTML;
+        console.log(classTemplateHTML);
 
         courses = $(".courses");
+        courses.html('');
 
         $('.courses').hide();
+        //document.getElementById('courses').remove('.course');
 
         $(document.getElementsByTagName("form")).hide();
         $(document.getElementsByClassName('gui')).show(); 
@@ -379,8 +390,8 @@ var Frontend = (function() {
         $('.instructor-create-cancel').click(cancel);
         $('.student-create-cancel').click(cancel);
         $('.login-cancel').click(cancel); 
-        $('.profile-back').click(cancel);
-        $('.profile-back').click(cancel);
+        $('.profile-back-student').click(cancel);
+        $('.profile-back-instructor').click(cancel);
         $('.add-course-cancel').click(cancel);
         $('.view-courses-back').click(cancel);
         $('.edit-instructor-back').click(cancel);
