@@ -27,19 +27,24 @@ var Frontend = (function() {
 
         $(document.getElementsByTagName("form")).hide();
         $(document.getElementsByClassName('gui')).show(); 
+        $(document.getElementsByClassName('bannerInstructor')).hide();
+        $(document.getElementsByClassName('bannerStudent')).hide();
+        $(document.getElementsByClassName('.backgroundSmall')).show();
+        $(document.getElementsByClassName('.backgroundBig')).hide();
+
 
 
         $('.instructor-create-cancel').click(cancel);
         $('.student-create-cancel').click(cancel);
         $('.login-cancel').click(cancel); 
-        $('.profile-back-student').click(cancel);
-        $('.profile-back-instructor').click(cancel);
-        $('.add-course-cancel').click(cancel);
+        $('.profile-back-student').click(cancelBigPage);
+        $('.profile-back-instructor').click(cancelBigPage);
+        $('.add-course-cancel').click(cancelBigPage);
         $('.view-courses-back').click(cancel);
-        $('.edit-instructor-back').click(cancel);
-        $('.edit-student-back').click(cancel);
-        $('.new-password-cancel').click(cancel);
-        $('.apply-ta-position-back').click(cancel);
+        $('.edit-instructor-back').click(cancelBigPage);
+        $('.edit-student-back').click(cancelStudentPage);
+        $('.instructor-new-password-cancel').click(cancelBigPage);
+        $('.apply-ta-position-back').click(cancelBigPage);
         $('.student-view-ta-positions-back').click(cancel);
         $('.instructor-view-ta-positions-back').click(cancel);
         $('.student-view-ta-applications-back').click(cancel);
@@ -69,6 +74,9 @@ var Frontend = (function() {
         $('.view-ta-positions-apply').click(showTAApplicationForm);
         $('.student-view-current-applications').click(showCurrentTAApplications);
         $('.instructor-list-ta-applications-button').click(showInstructorCurrentApplications);
+
+
+        //$('.instructor-login')
 
         $('.instructor-create-submit').click(createInstructor);
         $('.student-create-submit').click(createStudent);

@@ -26,11 +26,14 @@ header {
 }
 
 .background {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
     background-image: url('../images/cub.jpg');
     margin-top: 121px;
     display: inline-block;
     background-color: #d9d9d9;
-    height: 800px;
     background-position: 100% 100%;
     background-size: cover;
     width: 100%;
@@ -38,6 +41,18 @@ header {
     background-repeat: no-repeat;
 }
 
+
+.backgroundSmall {
+    height: 800px;
+}
+
+.backgroundBig {
+    height: 100% !important;
+}
+
+.background2 {
+    height: 100% !important;
+}
 /*.container {
     height: 490px;
     width: 450px;
@@ -57,19 +72,32 @@ header {
     border-color: cadetblue;
     border-radius: 10px;
 }*/
-
-.banner {
-    margin-left: 2%;
+.bannerInstructor {
+    position: fixed;
+    margin-left: 20px;
     float: left;
     height: 100%;
     width: 200px;
-    display: block;
+    display: inline-block;
     background-color: #EFFAEE;
     background: linear-gradient(#bf4059, #A60F2D);
+    clear: left;
+}
+
+.bannerStudent {
+    position: fixed;
+    margin-left: 20px;
+    float: left;
+    height: 100%;
+    width: 200px;
+    display: inline-block;
+    background-color: #EFFAEE;
+    background: linear-gradient(#bf4059, #A60F2D);
+    clear: left;
 }
 
 .logo {
-    position:center;
+    position: center;
     margin-left: 25px;
     margin-right: 25px;
     margin-top: 50px;
@@ -108,24 +136,28 @@ header {
     background: rgba(204, 204, 204, 0.8);
     width: 400px;
     padding: 40px;
-    margin-left:auto;
+    margin-left: auto;
     margin-right: auto;
     margin-top: 50px;
     /*background-color: #d9d9d9;
     margin-left: 15px;
     float: left;*/
+    
 }
 
 .big-profile-container {
+    /*white-space: nowrap;*/
+    overflow: hidden;
+    /*float:left;*/
+    display: block;
     /*overflow: scroll;*/
     background: rgba(204, 204, 204, 0.8);
-    width: 100%;
-    padding-top: 40px;
+    /*width: 85%;*/
+    padding-top: 10px;
     padding-bottom: 40px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 50px;
-    /*height: 100%;*/
+    margin-left: 210px;
+    margin-top: 30px;
+    max-width: calc(112% - 200px);
 }
 
 .instructor-create-gui-button {
@@ -271,14 +303,15 @@ header {
 }
 
 .courseContainer {
+    max-width: calc(190% - 50px);
     background: repeating-linear-gradient(#f2f2f2, #e6e6e6);
     background-color: #f2f2f2;
     border-style: solid;
     border-color: #a6a6a6;
     border-width: 2px;
     color: #595959;
-    /*margin-bottom: 10px;
-    margin-top: 10px;*/
+    margin-bottom: 5px;
+
     display: inline-block;
     margin-left: auto;
     margin-right: auto;
@@ -288,21 +321,99 @@ header {
     font-family: "Poppins", sans-serif;
     font-size: 16px;
     font-weight: 500;
-    width: 100%;
+    width: 2000px;
     padding: 15px;
 }
 
-.view-courses {
-	/*overflow-top: scroll;*/
-	/*height: 100%;*/
-}
-.courses{
-		height: 80%;
-}
-.course {
-    width: 100%;
-    background-color: #978989;
-    /*margin-bottom: 1%;*/
+.button-wrapper {
+    margin-right:  150px;
+    margin-top: 28px;
     display: inline-block;
 }
-	
+
+.approve-ta-application-button {
+    background: repeating-linear-gradient(#DFF4E3, #b3e5bc);
+    background-color: #DFF4E3;
+}
+
+.approve-ta-application-button:hover {
+    background: repeating-linear-gradient(#ecf8ee, #c6ebcd);
+}
+
+.approve-ta-application-button:active {
+    background: repeating-linear-gradient(#c6ebcd, #a0deab);
+}
+
+.decline-ta-application-button {
+    background: repeating-linear-gradient(#f1c1c1, #e79897);
+}
+
+
+.decline-ta-application-button:hover {
+    background: repeating-linear-gradient(#f6d5d5, #ecacac);
+}
+
+
+.decline-ta-application-button:active {
+    background: repeating-linear-gradient(#ecacac, #e38282);
+}
+
+.current-application-delete-button {
+    background: repeating-linear-gradient(#f1c1c1, #e79897);
+}
+
+.current-application-delete-button:hover {
+     background: repeating-linear-gradient(#f6d5d5, #ecacac);
+}
+
+.current-application-delete-button:active {
+    background: repeating-linear-gradient(#ecacac, #e38282);
+}
+
+.banner-button {
+    background: repeating-linear-gradient(#f2f2f2, #e6e6e6);
+    background-color: #f2f2f2;
+    border-style: solid;
+    border-color: #a6a6a6;
+    border-width: 2px;
+    color: #595959;
+    margin-bottom: 10px;
+    text-decoration: none;
+    text-align: center;
+    position: center;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    display: block;
+    width: 320px;
+    padding: 15px;
+    width: 180px !important;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+.banner-button:hover {
+    background: repeating-linear-gradient(#ffffff, #f2f2f2);
+}
+
+.banner-button:active {
+    background: repeating-linear-gradient(#bfbfbf, #d9d9d9);
+}
+
+.editingProfileContainer {
+    background: rgba(204, 204, 204, 0.8);
+    width: 400px;
+    padding: 40px;
+    margin-left: 200px;
+    margin-right: auto;
+    margin-top: 50px;
+    /*background-color: #d9d9d9;
+    margin-left: 15px;
+    float: left;*/
+    float: left;
+}
+
+
+
+

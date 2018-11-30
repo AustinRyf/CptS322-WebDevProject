@@ -3,13 +3,68 @@ var cancel = function(e) {
     $('.gui').show();
 };
 
+
+var cancelBigPage = function (e) {
+    $(e.target.parentElement).hide();
+   
+    if (($('.user-type').val()) == "instructor") {
+        goBackToInstructorPage();
+    }
+    else {
+        goBackToStudentPage();
+    }
+}
+
+var goBackToStudentPage = function (e) {
+    $('.change-password-form').hide();
+    $('.backgroundBig').show();
+    $('.backgroundSmall').hide();
+
+    $('.bannerStudent').show();
+    $('.view-ta-positions').show();
+    $('.student-display-current-applications').show();
+    $('.display-profile-student').hide();
+    $('.edit-student-profile').hide();
+    $('.apply-ta-position').hide();
+}
+
+var goBackToInstructorPage = function (e) {
+    $('.change-password-form').hide();
+    $('.instructor-display-ta-applications').show();
+    $('.view-courses').show();
+    $('.backgroundBig').show();
+    $('.backgroundSmall').hide();
+    $('.bannerInstructor').show();
+   
+    $('.display-profile-instructor').hide();
+    $('.edit-instructor-profile').hide();
+    $('.instructor-add-course').hide();
+    $('.change-password-form').hide();
+}
+
+var cancelStudentPage = function (e) {
+    $(e.target.parentElement).hide();
+
+    goBackToStudentPage();
+}
+
 var showInstructorCreate = function() {
     $('.gui').hide();
     $('.instructor-create').show();
 };
-var showAddCourse = function(e) {
+var showAddCourse = function (e) {
+
+
+    $('.backgroundBig').hide();
+    $('.backgroundSmall').show();
+
+    $('.display-profile-instructor').hide();
+    $('.edit-instructor-profile').hide();
+
     $('.view-profile').hide();
     $('.instructor-add-course').show();
+    $('.instructor-display-ta-applications').hide();
+    $('.view-courses').hide();
 };
 
 var showStudentCreate = function() {
@@ -52,9 +107,22 @@ var insertCurrentTAApplication = function(taApplication) {
     currentTAApplications.append(newElement);
 }
 
-var showTAApplicationForm = function(e) {
+
+
+var showTAApplicationForm = function (e) {
     $(e.target.parentElement).hide();
+
+    $('.backgroundBig').hide();
+    $('.backgroundSmall').show();
+
+   
     $('.apply-ta-position').show();
+    $('.bannerStudent').show();
+
+    $('.edit-student-profile').hide();
+    $('.display-profile-student').hide();
+    $('.view-ta-positions').hide();
+    $('.student-display-current-applications').hide();
 }
 
 var insertTAPosition = function(course) {

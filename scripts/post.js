@@ -67,14 +67,21 @@ var createStudent = function(e) {
     makePostRequest("api/student", student, onSuccess, onFailure);
 };
 
-var addCourse = function(e) {
+var addCourse = function (e) {
+    
     var course = {};
 
     course.courseName = $('.course-id-input').val();
     course.title = $('.course-name-input').val();
     course.description = $('.course-idk-input').val();
 
-    var onSuccess = function(data) {
+    var onSuccess = function (data) {
+        $('.instructor-add-course').hide();
+        //$('.instructor-display-ta-applications').show();
+        //$('.view-courses').show();
+        
+        showInstructorCurrentApplications();
+        displayCourses();
         //idk dont rly need nuffin
     }
     var onFailure = function() {
@@ -91,10 +98,46 @@ var login = function(e) {
 	data.userType = $('.user-type').val();
 	data.password = $('.login-password').val();
 
-	var onSuccess = function(data) {
-		console.log(data);
-		$(e.target.parentElement).hide();
-		$('.gui').show();
+    var onSuccess = function (data) {
+        $(e.target.parentElement).hide();
+
+        if (($('.user-type').val()) == "student") {
+
+             //STUDENT:
+            console.log("you are a student");
+
+            $('.backgroundSmall').hide();
+            $('.backgroundBig').show();
+
+            $('.instructor-display-ta-applications').hide();
+            $('.view-courses').hide();
+
+            $('.bannerStudent').show();
+            showCurrentTAApplications();
+            showAllTAPositions();                       
+        }
+        else  {
+            //INSTRUCTOR:
+            console.log("you are an instructor");
+
+            $('.backgroundSmall').hide();
+            $('.backgroundBig').show();
+
+            $('.view-ta-positions').hide();
+            $('.student-display-current-applications').hide();
+
+            $('.bannerInstructor').show();
+            showInstructorCurrentApplications();  //reject/accept
+            displayCourses(); //display all posted courses
+            
+
+
+        }
+    
+        
+        
+        $('.gui').show();
+        //$(".view-courses").append($(".instructor-display-ta-applications").remove());
 	};
 	var onFailure = function() {
 		console.log("Incorrect username or password!");
@@ -114,7 +157,7 @@ var studentEditSubmit = function(e) {
     var onSuccess = function(data) {
         console.log(data);
         $('.edit-student-profile').hide();
-        $('.gui').show();
+        goBackToStudentPage();
     }
     var onFailure = function() {
 
@@ -133,8 +176,9 @@ var instructorEditSubmit = function(e) {
     
     var onSuccess = function(data) {
         console.log(data);
-        $('.edit-instructor-profile').hide();
-        $('.gui').show();
+        goBackToInstructorPage();
+
+        //$('.gui').show();
     }
     var onFailure = function() {
 
@@ -152,6 +196,15 @@ var submitNewPassword = function(e) {
 
     var onSuccess = function(data) {
         console.log(data)
+        if (($('.user-type').val()) == "instructor") {
+            goBackToInstructorPage();
+            console.log("Instructor password successfully changed");
+        }
+        else {
+            goBackToStudentPage();
+            console.log("Student password successfully changed");
+        }
+
     }
     var onFailure = function() {
         if(postData.newPassword != postData.confirmNewPassword)
@@ -180,8 +233,12 @@ var submitTAPosition = function(e) {
         postData.priorTA = false;
     }
 
-    var onSuccess = function(data) {
+    var onSuccess = function (data) {
+        goBackToStudentPage();
         console.log(data);
+
+        showCurrentTAApplications();
+        showAllTAPositions();       
     }
     var onFailure = function() {
 

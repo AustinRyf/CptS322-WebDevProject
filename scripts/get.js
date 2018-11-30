@@ -14,9 +14,17 @@ var makeGetRequest = function(url, onSuccess, onFailure) {
 };
 
 var showProfile = function() {
+    $('.backgroundBig').hide();
+    $('.backgroundSmall').show();
+
 
     var showInstructor = function(data)
     {
+        $('.instructor-add-course').hide();
+        $('.edit-instructor-profile').hide();
+
+
+
         $('.display-profile-student').hide();
         $('.display-profile-instructor').show();
 
@@ -29,7 +37,10 @@ var showProfile = function() {
 
     var showStudent = function(data)
     {
+        $('.edit-student-profile').hide();
         $('.display-profile-instructor').hide();
+        $('.apply-ta-position').hide();
+
         $('.display-profile-student').show();
 
         $('.profile-name-student').text(data.student.last_name + ", " + data.student.first_name);
@@ -51,13 +62,20 @@ var showProfile = function() {
         else if(data.type == "student")
         {
             showStudent(data);
-            
+
+            $('.view-ta-positions').hide();
+            $('.student-display-current-applications').hide();
+
+
             $('.gui').hide();
             $('.view-profile').show();
         }
         else 
         {
             showInstructor(data);
+            $('.instructor-display-ta-applications').hide();
+            $('.view-courses').hide();
+
             
             $('.gui').hide();
             $('.view-profile').show();
@@ -70,11 +88,18 @@ var showProfile = function() {
     makeGetRequest("api/profile", onSuccess, onFailure);
 };
 
-var editProfile = function(e) {
+var editProfile = function (e) {
+    $('.backgroundSmall').show();
+    $('.backgroundBig').hide();
     var onSuccess = function(data) {
 
         var editStudentProfile = function(data) {
             $('.gui').hide();
+            $('.view-ta-positions').hide();
+            $('.student-display-current-applications').hide();
+            $('.apply-ta-position').hide();
+            $('.bannerStudent').show();
+            $('.display-profile-student').hide();
 
             $(".edit-student-email").attr('placeholder', 'Current Email: ' + data.student.email);
             $(".edit-major").attr('placeholder', 'Current Major: ' + data.student.major);
@@ -85,12 +110,19 @@ var editProfile = function(e) {
         }
         var editInstructorProfile = function() {
             $('.gui').hide();
+            $('.display-profile-instructor').hide();
+            $('.instructor-add-course').hide();
+            $('.backgroundBig').hide();
+            $('.instructor-display-ta-applications').hide();
+            $('.view-courses').hide();
 
             $(".edit-instructor-email").attr('placeholder', 'Current Email: ' + data.instructor.email);
             $(".edit-phone").attr('placeholder', 'Current Phone: ' + data.instructor.phone);
             $(".edit-office").attr('placeholder', 'Current Office: ' + data.instructor.office);
 
             $('.edit-instructor-profile').show();
+
+           
         }
 
         if(data.type == "student")
@@ -119,8 +151,9 @@ var displayCourses = function() {
             insertCourse(data.courses[i]);
         }
         $('.gui').hide();
+        $(".courses").show();
         $('.view-courses').show();
-        courses.show();
+        
     }
     var onFailure = function() {
 
@@ -131,6 +164,16 @@ var displayCourses = function() {
 var logout = function(e) {
     var onSuccess = function(data) {    
         console.log(data)
+        $('.gui').show();
+        $('.instructor-display-ta-applications').hide();
+        $('.view-courses').hide();
+        $('.bannerInstructor').hide();
+
+        $('.backgroundBig').hide();
+        $('.backgroundSmall').show();
+        $('.bannerStudent').hide();
+        $('.view-ta-positions').hide();
+        $('.student-display-current-applications').hide();
     }
     var onFailure = function() {
         alert ("logout GET request failed")
@@ -139,17 +182,26 @@ var logout = function(e) {
     makeGetRequest('api/logout', onSuccess, onFailure);
 }
 
+//shows list of applied courses and their status
+//student -> view profile -> view stastus of current applications
 var showCurrentTAApplications = function(e) {
     var onSuccess = function(data) {
 
         console.log(data);
 
-         $('#current-applications').empty();
+
+
+        $('#current-applications').empty();
+
+        if (e != undefined) {
+            $(e.target.parentElement).hide();
+        }
 
         for(i = 0; i < data.applications.length; i++) {
             insertCurrentTAApplication(data.applications[i]);
         }
-        $(e.target.parentElement).hide();
+        
+        $('.gui').hide();
         $('.student-display-current-applications').show();
     }
     var onFailure = function() {
@@ -159,10 +211,16 @@ var showCurrentTAApplications = function(e) {
     makeGetRequest('api/get-current-applications', onSuccess, onFailure);
 }
 
+//on student page. lists all available courses regardless of approval
+//student -> view profile -> available ta positions
 var showAllTAPositions = function(e) {
     var onSuccess = function(data) {
         console.log(data);
         $('#view-all-ta-positions').empty();
+
+        if (e != undefined) {
+            $(e.target.parentElement).hide();
+        }
 
         for(i = 0; i < data.courses.length; i++) {
             insertTAPosition(data.courses[i]);
@@ -176,18 +234,29 @@ var showAllTAPositions = function(e) {
     makeGetRequest('api/get-all-positions', onSuccess, onFailure);
 }
 
+//this is where instructor can accept and reject
 var showInstructorCurrentApplications = function(e) {
     var onSuccess = function(data) {
         console.log(data);
 
+        
         $('#instructor-applications').empty();
 
-        $(e.target.parentElement).hide();
+        if (e != undefined) {
+            $(e.target.parentElement).hide();
+        }
+        
         $('.instructor-display-ta-applications').show();
+        $('.backgroundBig').show();
+        $('.backgroundSmall').hide();
 
         for(i = 0; i < data.applications.length; i++) {
             insertInstructorTAApplication(data.applications[i]);
         }
+
+        
+       
+        console.log(document.getElementById('view-courses'));
     }
     var onFailure = function(data) {
         alert("instructor applications GET request failed");
