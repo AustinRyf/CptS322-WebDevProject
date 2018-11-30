@@ -1,0 +1,24 @@
+Iteration 3:	
+Frontend:	
+Revise	the	user	interfaces	from	the	previous	iterations.
+Have	the	mock	interfaces	for:
+	
+− (Student)	list	available	TA	positions	and	apply	for	an	open	TA	position
+− (Instructor)	display	all	TA	applications	
+− (Instructor)	approve TA	applications	
+
+Frontend/JS:
+− (student)	Initiate	a	GET	request	to	retrieve the	courses	that are	not	assigned	to	TAs	yet.
+− (instructor)	Initiate	a	POST	request	to	approve	the	TAship	application	of	a	student	for	a	
+course.	
+− (instructor)	Initiate	a	GET	request	to	get the	list	of	the	TAs	assigned	to	an	instructor’s classes.		
+
+Backend:	
+− (instructor)	Route	to	retrieve	the	courses	that	are	not	assigned	TAs	yet	(GET)
+	
+− (instructor)	Route	to	update	the	status	code	of	a	TAs application	as	confirmed	(POST)	
+(i.e.,	update	the	status	of	an	application	in	the	courseTA	table	as	“approved”.)	Assume	
+that	a	student	may	be	the	TA	for	a single	class only.	So	the	other applications	of	the	
+student	should	be	automatically	assigned	as	“dismissed” when	a	student	is	assigned	to	a	
+course.		
+− (instructor)	Route	to get	the	list	of	the	TAs	assigned	to	an	instructor’s	classes. (GET)

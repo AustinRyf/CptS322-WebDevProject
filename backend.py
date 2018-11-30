@@ -24,7 +24,7 @@ class Student(db.Model):
 	lastName = db.Column(db.String(128), nullable=False)
 	email = db.Column(db.String(128), nullable=False)
 	major = db.Column(db.String(128), nullable=False)
-	gpa = db.Column(db.String(128), nullable=False)
+	gpa = db.Column(db.String(4), nullable=False)
 	graduationDate = db.Column(db.String(128), nullable=False)
 	passwordHash = db.Column(db.String(255), nullable=False)
 
@@ -39,12 +39,26 @@ class Instructor(db.Model):
 	office = db.Column(db.String(128), nullable=False)
 	passwordHash = db.Column(db.String(255), nullable=False)
 
-class Class(db.Model):
+class Course(db.Model):
 	id = db.Column(db.Integer, nullable=False, primary_key=True)
 	courseName = db.Column(db.String(64), nullable=False)
 	title = db.Column(db.String(64), nullable=False)
 	description = db.Column(db.String(4096), nullable=False)
 	instructor = db.Column(db.String(128), nullable=False)
+	facultyId = db.Column(db.Integer, nullable=False)
+	hasTA = db.Column(db.Boolean, default=False, nullable=False)
+
+class TAApplication(db.Model):
+	id = db.Column(db.Integer, nullable=False, primary_key=True)
+	studentId = db.Column(db.Integer, nullable=False)
+	facultyId = db.Column(db.Integer, nullable=False)
+	courseName = db.Column(db.String(64), nullable=False)
+	studentGrade = db.Column(db.String(2), nullable=False)
+	studentSemesterTaken = db.Column(db.String(128), nullable=False)
+	applicationDate = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+	priorTA = db.Column(db.Boolean, nullable=False)
+	applicationStatus = db.Column(db.String(128), nullable=False, default="Under review")
+
 
 @app.route('/api/student', methods=['POST'])
 def createStudent():
@@ -73,47 +87,6 @@ def createStudent():
 
 	return jsonify({"status": 1, "student": row_to_obj_student(student)}), 200
 
-@app.route('/api/addcourse', methods=['POST'])
-def addCourse():
-	payload = request.get_json()
-
-	if(session['userType'] != 'instructor'):
-		return jsonify({"status": -1}), 401
-
-	course = Class()
-
-	course.courseName = payload['courseName']
-	course.title = payload['title']
-	course.description = payload['description']
-	course.instructor = Instructor.query.filter_by(id=session['userId']).first().lastName
-	course.instructor += " ," + Instructor.query.filter_by(id=session['userId']).first().firstName
-
-	db.session.add(course)
-	db.session.commit()
-
-	db.session.refresh(course)
-
-	return jsonify({"status": 1, "class": row_to_obj_class(course)}), 200
-
-@app.route('/api/courses', methods=['GET'])
-def getCourses():
-
-	query = Class.query.all()
-
-	result = []
-	for row in query:
-		result.append(
-			row_to_obj_class(row)
-            )
-
-
-	return jsonify({"status": 1, "courses": result})
-
-@app.route('/api/logout', methods=['GET'])
-def logout():
-	session.pop('userId')
-	session.pop('userType')
-	return jsonify({"status": 1}), 200
 
 @app.route('/api/instructor', methods=['POST'])
 def createInstructor():
@@ -128,8 +101,7 @@ def createInstructor():
 	instructor.email = payload['email']
 	instructor.phone = payload['phone']
 	instructor.office = payload['office']
-	print(instructor.email)
-	
+
 	instructor.passwordHash = generate_password_hash(payload['password'])
 
 
@@ -139,6 +111,52 @@ def createInstructor():
 	db.session.refresh(instructor);
 
 	return jsonify({"status": 1, "instructor": row_to_obj_instructor(instructor)}), 200
+
+
+@app.route('/api/addcourse', methods=['POST'])
+def addCourse():
+	payload = request.get_json()
+
+	if(session['userType'] != 'instructor'):
+		return jsonify({"status": -1}), 401
+
+	course = Course()
+
+	course.courseName = payload['courseName']
+	course.title = payload['title']
+	course.description = payload['description']
+	course.facultyId = Instructor.query.filter_by(id=session['userId']).first().facultyId
+	course.instructor = Instructor.query.filter_by(id=session['userId']).first().lastName
+	course.instructor += " ," + Instructor.query.filter_by(id=session['userId']).first().firstName
+
+	db.session.add(course)
+	db.session.commit()
+
+	db.session.refresh(course)
+
+	return jsonify({"status": 1, "courses: ": row_to_obj_course(course)}), 200
+
+@app.route('/api/courses', methods=['GET'])
+def getCourses():
+
+	query = Course.query.all()
+
+	result = []
+	for row in query:
+		result.append(
+			row_to_obj_course(row)
+            )
+
+
+	return jsonify({"status": 1, "courses": result})
+
+@app.route('/api/logout', methods=['GET'])
+def logout():
+	session.pop('userId')
+	session.pop('userType')
+	return jsonify({"status": 1}), 200
+
+
 
 
 @app.after_request
@@ -182,6 +200,100 @@ def getSessionProfile():
 	else:
 		user = Instructor.query.filter_by(id=session['userId']).first()
 		return jsonify({"status": 1, "type": "instructor", "instructor": row_to_obj_instructor(user)}), 200
+
+@app.route('/api/get-current-applications', methods=['GET'])
+def getCurrentApplications():
+
+	user = Student.query.filter_by(id=session['userId']).first()
+
+	query = TAApplication.query.filter_by(studentId=user.studentId).all();
+
+	result = [];
+	for row in query:
+		result.append(row_to_obj_ta_application(row))
+
+	return jsonify({"status": 1, "applications": result})
+
+@app.route('/api/get-all-positions', methods=['GET'])
+def getAllPositions():
+
+	query = Course.query.filter_by(hasTA=False).all();
+
+	result = [];
+	for row in query:
+		result.append(row_to_obj_course(row))
+
+	return jsonify({"status": 1, "courses": result})
+
+@app.route('/api/get-instructor-applications', methods=['GET'])
+def getInstructorApplications():
+
+	user = Instructor.query.filter_by(id=session['userId']).first()
+	query = TAApplication.query.filter_by(facultyId=user.facultyId).all();
+
+	result = [];
+	for row in query:
+		result.append(row_to_obj_ta_application(row))
+
+	return jsonify({"status": 1, "applications": result})
+
+
+@app.route('/api/submit-ta-application', methods=['POST'])
+def addTAApplication():
+	payload = request.get_json()
+	user = Student.query.filter_by(id=session['userId']).first()
+
+	taApplication = TAApplication()
+
+	taApplication.studentId = user.studentId
+	taApplication.facultyId = payload['facultyId']
+	taApplication.courseName = payload['courseName']
+	taApplication.studentGrade = payload['studentGrade']
+	taApplication.studentSemesterTaken = payload['studentSemesterTaken']
+	taApplication.priorTA = payload['priorTA']
+
+	db.session.add(taApplication)
+
+	db.session.commit();
+
+	db.session.refresh(taApplication);
+
+	return jsonify({"status": 1, "application": row_to_obj_ta_application(taApplication)}), 200
+
+@app.route('/api/delete-ta-application/<int:id>', methods=['POST'])
+def deleteTAApplication(id):
+	row = TAApplication.query.filter_by(id=id).first()
+	db.session.delete(row)
+	db.session.commit()
+	return jsonify({"status": 1, "application": row_to_obj_ta_application(row)}), 200
+
+@app.route('/api/approve-ta-application/<int:id>', methods=['POST'])
+def approveTAApplication(id):
+
+	row = TAApplication.query.filter_by(id=id).first()
+
+	course = Course.query.filter_by(facultyId=row.facultyId).filter_by(courseName=row.courseName).first()
+	remainingApplications = TAApplication.query.filter_by(studentId=row.studentId).all()
+
+	course.hasTA = True;
+	row.applicationStatus = "assigned"; 
+
+	db.session.commit()
+
+	db.session.refresh(row);
+	return jsonify({"status": 1, "application": row_to_obj_ta_application(row)}), 200
+
+@app.route('/api/reject-ta-application/<int:id>', methods=['POST'])
+def rejectTAApplication(id):
+
+	row = TAApplication.query.filter_by(id=id).first()
+	
+	row.applicationStatus = "dismissed"; 
+
+	db.session.commit()
+
+	db.session.refresh(row);
+	return jsonify({"status": 1, "application": row_to_obj_ta_application(row)}), 200
 
 @app.route('/api/change_password', methods=['POST'])
 def changePassword():
@@ -242,10 +354,7 @@ def editInstructor():
 
 	return jsonify({"status": 1, "instructor": row_to_obj_instructor(row)});
 
-
-
-
-def row_to_obj_class(row):
+def row_to_obj_course(row):
 	row = {
 			"id": row.id,
 			"course_name": row.courseName,
@@ -272,6 +381,21 @@ def row_to_obj_student(row):
 
     return row
 
+def row_to_obj_ta_application(row):
+	row = {
+		"id": row.id,
+		"student_id": row.studentId,
+		"faculty_id": row.facultyId,
+		"course_name": row.courseName,
+		"student_grade": row.studentGrade,
+		"student_semester_taken": row.studentSemesterTaken,
+		"application_date": row.applicationDate,
+		"prior_ta": row.priorTA,
+		"application_status": row.applicationStatus,
+	}
+
+	return row
+
 def row_to_obj_instructor(row):
     row = {
             "id": row.id,
@@ -292,13 +416,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-@app.route('/test', methods=['GET'])
-def test():
-	session['test'] = "hello"
-	return 'session set'
-
-@app.route('/test1', methods=['GET'])
-def test1():
-	return session['test']

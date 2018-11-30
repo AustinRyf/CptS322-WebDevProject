@@ -8,6 +8,10 @@
 
         <script src="scripts/jquery.min.js"></script>
         <script type="text/javascript" src="scripts/frontend.js"></script>
+        <script type="text/javascript" src="scripts/ui.js"></script>
+        <script type="text/javascript" src="scripts/get.js"></script>
+        <script type="text/javascript" src="scripts/post.js"></script>
+
         <script type="text/javascript">
             $(function() {
                 Frontend.start();
@@ -21,29 +25,27 @@
         <div class="headerLogo">
             WSU TeachEzie
         </div>
-
     </header>
     
-    <div id ="session_value"></div>
-
     <div class="background">
         <!--<div class="banner">
         <div class="logo">
 
         </div>
     </div>-->
+
         <div class="container">
 
 
             <form class='profileContainer gui'>
-                <div class="message BigMessage">Welcome to TeachEzie</div>
+                <div class="BigMessage">Welcome to TeachEzie</div>
 
                 <input type="button" class="myButton login-gui-button" value="Login" />
                 <input type="button" class="myButton logout-gui-button" value="Logout" />
-                <div class="message SmallMessage">New Instructor?</div>
+                <div class="SmallMessage">New Instructor?</div>
                 <input type="button" class="myButton instructor-create-gui-button" value="Create Instructor Profile" />
 
-                <div class="message SmallMessage">New Student?</div>
+                <div class="SmallMessage">New Student?</div>
                 <input type="button" class="myButton student-create-gui-button" value="Create Student Profile" />
 
                 <input type="button" class="myButton view-profile-gui-button" value="View profile" />
@@ -55,7 +57,7 @@
 
 
         <form class='profileContainer instructor-create'>
-            <div class="message BigMessage">Enter your instructor profile info...</div>
+            <div class="BigMessage">Enter your instructor profile info...</div>
             <input type="text" placeholder="Faculty ID" class="inputProfileText instructor-id-input" name="facultyid" />
             <input type="text" placeholder="First name" class="inputProfileText instructor-first-name-input" name="facultyfirstname" />
             <input type="text" placeholder="Last name" class="inputProfileText instructor-last-name-input" name="facultylastname" />
@@ -68,7 +70,7 @@
         </form>
 
         <form class='profileContainer student-create'>
-            <div class="message BigMessage">Enter your student profile info...</div>
+            <div class="BigMessage">Enter your student profile info...</div>
             <input type="text" placeholder="Student ID" class="inputProfileText student-id-input" name="studentid" />
             <input type="text" placeholder="First name" class="inputProfileText student-first-name-input" name="studentfirstname" />
             <input type="text" placeholder="Last name" class="inputProfileText student-last-name-input" name="studentlastname" />
@@ -82,11 +84,11 @@
         </form>
 
         <form class='profileContainer login'>
-            <div class="message BigMessage">Log in...</div>
+            <div class="BigMessage login-message">Log in...</div>
             <input type="text" placeholder="Email" class="inputProfileText login-username" name="loginusername" />
             <input type="text" placeholder="Password" class="inputProfileText login-password" name="loginpassword" />
 
-            <div class="message SmallMessage">Are you a student or an instructor?</div>
+            <div class="SmallMessage">Are you a student or an instructor?</div>
             <select class="user-type">
                 <option value='student'>Student</option>
                 <option value='instructor'>Instructor</option>
@@ -96,11 +98,9 @@
         </form>
 
         <form class='view-profile'>
-            <!--<div class="message BigMessage">Your Profile</div>-->
-
 
             <section class="profileContainer display-profile-instructor">
-                <div class="message BigMessage">Your Profile</div>
+                <div class="BigMessage">Your Profile</div>
 
                 <div class="profile-label SmallMessage">Name: </div>
                 <div class="profile-attribute profile-name-instructor"></div>
@@ -119,39 +119,45 @@
 
                 <input type="button" class="myButton add-course-button" value="Add Course" />
                 <input type="button" class="myButton profile-back-instructor" value="Back" />
+                
+                <input type="button" class="myButton instructor-list-ta-applications-button" value="Current TA Applications" />
+
             </section>
         
 
             
-                <section class="profileContainer display-profile-student">
-                    <div class="message BigMessage">Your Profile</div>
+            <section class="profileContainer display-profile-student">
+                <div class="BigMessage">Your Profile</div>
 
-                    <div class="profile-label SmallMessage">Name: </div>
-                    <div class="profile-attribute profile-name-student"></div>
+                <div class="profile-label SmallMessage">Name: </div>
+                <div class="profile-attribute profile-name-student"></div>
 
-                    <div class="profile-label SmallMessage">Email: </div>
-                    <div class="profile-attribute profile-email-student"></div>
+                <div class="profile-label SmallMessage">Email: </div>
+                <div class="profile-attribute profile-email-student"></div>
 
-                    <div class="profile-label SmallMessage">Student ID: </div>
-                    <div class="profile-attribute profile-student-id"></div>
+                <div class="profile-label SmallMessage">Student ID: </div>
+                <div class="profile-attribute profile-student-id"></div>
 
-                    <div class="profile-label SmallMessage">GPA: </div>
-                    <div class="profile-attribute profile-gpa"></div>
+                <div class="profile-label SmallMessage">GPA: </div>
+                <div class="profile-attribute profile-gpa"></div>
 
-                    <div class="profile-label SmallMessage">Graduation Date: </div>
-                    <div class="profile-attribute profile-graduation-date"></div>
+                <div class="profile-label SmallMessage">Graduation Date: </div>
+                <div class="profile-attribute profile-graduation-date"></div>
 
-                    <div class="profile-label SmallMessage">Major: </div>
-                    <div class="profile-attribute profile-major"></div>
-                    <input type="button" class="myButton profile-back-student" value="Back" />
+                <div class="profile-label SmallMessage">Major: </div>
+                <div class="profile-attribute profile-major"></div>
 
-                </section>
+                <input type="button" class="myButton profile-back-student" value="Back" />
+                <input type="button" class="myButton student-list-ta-positions-button" value="Available TA Positions" />
+                <input type="button" class="myButton student-view-current-applications" value="View Status of Current Applications" />
+                <input type="button" class="myButton view-ta-positions-apply" value="Apply For Position" />
+            </section>
 
-            </form>
+        </form>
 
 
         <form class='profileContainer edit-instructor-profile'>
-            <div class="message BigMessage">Edit Profile</div>
+            <div class="BigMessage">Edit Profile</div>
             <input type="text" value="" class="inputProfileText edit-instructor-email" />
             <input type="text" value="" class="inputProfileText edit-phone" />
             <input type="text" value="" class='inputProfileText edit-office' />
@@ -162,7 +168,7 @@
         </form>
 
         <form class='profileContainer edit-student-profile'>
-            <div class="message BigMessage">Edit Profile</div>
+            <div class="BigMessage">Edit Profile</div>
             <input type="text" class="inputProfileText edit-student-email" label="Email" value="" />
             <input type="text" class='inputProfileText edit-major' value="" />
             <input type="text" class='inputProfileText edit-gpa' value="" />
@@ -174,7 +180,7 @@
         </form>
 
         <form class='profileContainer change-password-form'>
-            <div class="message BigMessage">Change Password</div>
+            <div class="BigMessage">Change Password</div>
             <input type="text" class="inputProfileText old-password" placeholder="Old Password" value="" />
             <input type="text" class="inputProfileText new-password" placeholder="New Password" value="" />
             <input type="text" class="inputProfileText confirm-new-password" placeholder="Confirm New Password" value="" />
@@ -184,40 +190,179 @@
         </form>
 
             <form class='profileContainer instructor-add-course'>
-                <div class="message BigMessage">Add a Class</div>
-                <input type="text" placeholder="Class Catalog ID" class="inputProfileText class-id-input" name="classid" />
-                <input type="text" placeholder="Class Name" class="inputProfileText class-name-input" name="classnamne" />
-                <input type="text" placeholder="Class Description" class="inputProfileText class-idk-input" name="classidk" />
+                <div class="BigMessage">Add a Class</div>
+                <input type="text" placeholder="Class Catalog ID" class="inputProfileText course-id-input" name="classid" />
+                <input type="text" placeholder="Class Name" class="inputProfileText course-name-input" name="classnamne" />
+                <input type="text" placeholder="Class Description" class="inputProfileText course-idk-input" name="classidk" />
 
                 <input type="button" class="myButton add-course-submit" value="Submit" />
                 <input type="button" class="myButton add-course-cancel" value="Cancel" />
             </form>
 
-            <form class='big-profile-container view-courses'>
-                <div class="message BigMessage">Your Courses</div>
+        <form class='big-profile-container view-courses'>
+            <div class="BigMessage">Your Courses</div>
 
-                <section class='courses' id='courses'>
-
-
-                    <article class='course courseContainer'>
-                        <div class="profile-label SmallMessage">Course Name: </div>
-                        <div class='profile-attribute course-name'></div>
-
-                        <div class="profile-label SmallMessage">Course Title: </div>
-                        <div class='profile-attribute course-title'></div>
-
-                        <div class="profile-label SmallMessage">Course Description: </div>
-                        <div class='profile-attribute course-description'></div>
-
-                        <div class="profile-label SmallMessage">Course Instructor: </div>
-                        <div class='profile-attribute instructor'></div>
-                    </article>
+            <section class='courses' id='courses'>
 
 
-                </section>
-                <input type="button" class="myButton view-courses-back" value="Back" />
-            </form>
+                <article class='course courseContainer'>
+                    <div class="profile-label SmallMessage">Course Name: </div>
+                    <div class='profile-attribute course-name'></div>
 
+                    <div class="profile-label SmallMessage">Course Title: </div>
+                    <div class='profile-attribute course-title'></div>
+
+                    <div class="profile-label SmallMessage">Course Description: </div>
+                    <div class='profile-attribute course-description'></div>
+
+                    <div class="profile-label SmallMessage">Course Instructor: </div>
+                    <div class='profile-attribute instructor'></div>
+                </article>
+
+
+            </section>
+
+            <input type="button" class="myButton view-courses-back" value="Back" />
+
+        </form>
+
+        <form class = 'apply-ta-position profileContainer'>
+            <div class="BigMessage">TA Application Form</div>
+
+            <input type="text" placeholder= "Faculty ID" class="inputProfileText ta-application-facultyid-input" />
+            <input type="text" placeholder= "Course Name" class="inputProfileText ta-application-coursename-input" />
+
+
+
+            <div class="SmallMessage">Grade Recieved</div>     
+            <select class = "ta-application-grade-input dropdown-select" id = "ta-application-grade-input">
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+-</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="F">F</option>
+            </select>
+
+            <div class="SmallMessage">Semester Taken: </div>    
+            <div class="ta-application-semester-input">
+                <select class = "ta-application-season-input dropdown-select" label = "Grade recieved in course">
+                    <option value="Fall">Fall</option>
+                    <option value="Spring">Spring-</option>
+                    <option value="Summer">Summer</option>
+                </select>
+
+                <select class = "ta-application-year-input dropdown-select" label = "Grade recieved in course">
+                    <option value="2008">2008</option>
+                    <option value="2009">2009</option>
+                    <option value="2010">2010</option>
+                    <option value="2011">2011</option>
+                    <option value="2012">2012</option>
+                    <option value="2013">2013</option>
+                    <option value="2014">2014</option>
+                    <option value="2015">2015</option>
+                    <option value="2016">2016</option>
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                </select>
+            </div>
+
+            <div class="SmallMessage">Prior TA?</div>     
+            <select class = "ta-application-grade-input dropdown-select" id = "ta-application-grade-input">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+
+            <input type="button" class="myButton apply-ta-position-submit" value="Submit" />
+            <input type="button" class="myButton apply-ta-position-back" value="Cancel" />
+            
+        </form>
+
+        <form class = 'instructor-display-ta-applications profileContainer'>
+
+            <section class = 'instructor-applications' id = 'instructor-applications'>
+                <article class = 'courseContainer ta-application-instructor'>
+                    
+                    <div class="profile-label SmallMessage">Student ID: </div>
+                    <div class='profile-attribute instructor-ta-application-student-id'></div>
+
+                    <div class="profile-label SmallMessage">Course Name: </div>
+                    <div class='profile-attribute instructor-ta-application-course-name'></div>
+
+                    <div class="profile-label SmallMessage">Grade Recieved: </div>
+                    <div class='profile-attribute instructor-ta-application-grade-recieved'></div>
+
+                    <div class="profile-label SmallMessage">Semester taken: </div>
+                    <div class='profile-attribute instructor-ta-application-semester-taken'></div>
+
+                    <div class="profile-label SmallMessage">Prior TA: </div>
+                    <div class='profile-attribute instructor-ta-application-prior-ta'></div>
+
+                    <div class="profile-label SmallMessage">Application Date: </div>
+                    <div class='profile-attribute instructor-ta-application-date'></div>
+                    
+                    <input type = "button" class = "myButton approve-ta-application-button" value = "Accept" />
+
+                    <input type = "button" class = "myButton decline-ta-application-button" value = "Reject" />
+
+                </article>
+            </section>
+
+            <input type="button" class="myButton instructor-view-ta-positions-back" value="Back" />
+        </form>
+
+        <form class = 'student-display-current-applications profileContainer'>
+
+            <section class = 'current-applications' id = 'current-applications'>
+
+                <article class = 'current-student-application courseContainer'>
+                    <div class="profile-label SmallMessage">Instructor ID: </div>
+                    <div class='profile-attribute current-application-instructor-id'></div>
+
+                    <div class="profile-label SmallMessage">Course Name: </div>
+                    <div class='profile-attribute current-application-course-name'></div>
+
+                    <div class="profile-label SmallMessage">Status: </div>
+                    <div class='profile-attribute current-application-status'></div>
+
+                    <input type = "button" class = "myButton current-application-delete-button" value = "Remove" />
+                </article>>
+            </section>
+
+
+            
+            <input type="button" class="myButton student-view-ta-applications-back" value="Back" />
+
+        </form>
+
+        
+        <form class = 'view-ta-positions profileContainer'>
+
+            <section class = 'view-all-ta-positions' id = 'view-all-ta-positions'>
+
+                <article class = 'courseContainer ta-position-student'>
+                    <div class="profile-label SmallMessage">Course Name: </div>
+                    <div class='profile-attribute student-ta-position-course-name'></div>
+
+                    <div class="profile-label SmallMessage">Instructor: </div>
+                    <div class='profile-attribute student-ta-position-instructor'></div>
+
+                    <div class="profile-label SmallMessage">Instructor ID: </div>
+                    <div class='profile-attribute student-ta-position-instructor-id'></div>
+                
+                </article>
+
+            </section>
+
+            <input type="button" class="myButton student-view-ta-positions-back" value="Back" />
+
+        </form>
 
 </div>
 
