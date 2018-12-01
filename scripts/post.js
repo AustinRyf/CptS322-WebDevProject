@@ -287,25 +287,17 @@ var studentEditSubmit = function(e) {
         }
     }
 
-    if(newData.gpa.length > 0) {
-        if (isNaN(parseFloat(newData.gpa)) == true) {
-            alert("GPA must be a number");
-            return;
-        }
+    if (isNaN(parseFloat(newData.gpa)) == true) {
+        alert("GPA must be a number");
+        return;
     }
-
-    if(newData.gpa.length > 0) {
-        if (parseFloat(newData.gpa) < 0.0){
-            alert("GPA must be greater than 0.0");
-            return;
-        }
+    if (parseFloat(newData.gpa) < 0.0){
+        alert("GPA must be greater than 0.0");
+        return;
     }
-
-    if(newData.gpa.length > 0) {
-        if (parseFloat(newData.gpa) > 4.0){
-            alert("GPA must be less than 4.0");
-            return;
-        }
+    if (parseFloat(newData.gpa) > 4.0){
+        alert("GPA must be less than 4.0");
+        return;
     }
     
     var onSuccess = function(data) {
@@ -451,7 +443,7 @@ var submitTAPosition = function(e) {
 
         console.log(data);
         if(data.status === -1) {
-            alert("Duplicate ta application!");
+            alert(data.message);
         } 
         else {
             goBackToStudentPage();

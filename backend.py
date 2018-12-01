@@ -277,6 +277,17 @@ def addTAApplication():
 
 	duplicate = TAApplication.query.filter_by(studentId=taApplication.studentId).filter_by(facultyId=taApplication.facultyId).filter_by(courseName=taApplication.courseName).first()
 
+	verify = Course.query.filter_by(facultyId=taApplication.facultyId).filter_by(courseName=taApplication.courseName).first()
+
+	userTAApplication = TAApplication.query.filter_by(studentId=taApplication.studentId).filter_by(applicationStatus="assigned").first()
+
+	if userTAApplication is not None:
+		return jsonify({"status": -1, "message": "student already has assigned position"})
+
+	if verify is None:
+		return jsonify({"status":-1, "message": "class does not exist"})
+	elif verify.hasTA is True:
+		return jsonify({"status":-1, "message": "class already has TA"})
 
 	if duplicate is not None:
 		return jsonify({"status": -1, "message": "duplicate ta application"}), 200
