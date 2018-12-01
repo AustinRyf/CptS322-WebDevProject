@@ -29,13 +29,52 @@ var createInstructor = function(e) {
     instructor.office = $('.instructor-office-input').val();
     instructor.password = $('.instructor-password-input').val();
 
+    if (instructor.facultyId.length != 10) {
+        alert("Faculty ID must be 10 characters");
+        return;
+    }
+    if (isNaN(parseFloat(instructor.facultyId)) == true) {
+        alert("Faculty ID must be a number");
+        return;
+    }
+    if (instructor.firstName.length < 1 || instructor.firstName.length > 32) {
+        alert("First name must be greater than 0 characters and less than 32 characters");
+        return;
+    }
+    if (instructor.lastName.length < 1 || instructor.lastName.length > 32) {
+        alert("Last name must be greater than 0 characters and less than 32 characters");
+        return;
+    }
+    if (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(instructor.email) == false) {
+        alert("Not a valid email (Please enter in form XXXX@XXXX.XXX)\n");
+        return;
+    }
+    if(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(instructor.phone) == false) {
+        alert("Not a valid phone number (Please enter in form XXX-XXX-XXXX)");
+        return;
+    }
+    if (instructor.office.length < 1 || instructor.office.length > 32) {
+        alert("Office must be greater than 0 characters and less than 32 characters");
+        return;
+    }
+    if(instructor.password.length < 1 || instructor.password.length > 64) {
+        alert("Password must be greater than 0 characters and less than 64 characters");
+        return;
+    }
+
     var onSuccess = function(data) {
         console.log(data);
-        $(e.target.parentElement).hide();
-        $('.gui').show();
+
+        if(data.status === -1) {
+            alert("Duplicate instructor profile!");
+        }
+        else {
+            $(e.target.parentElement).hide();
+            $('.gui').show();
+        }
     };
 
-    var onFailure = function() {
+    var onFailure = function(data) {
         console.log("POST request failed\n");
     };
     makePostRequest("api/instructor", instructor, onSuccess, onFailure);
@@ -55,13 +94,70 @@ var createStudent = function(e) {
     student.graduationDate = $('.student-graduation-input').val();
     student.password = $('.student-password-input').val();
 
+
+    if (student.studentId.length != 10) {
+        alert("Student ID must 10 characters");
+        return;
+    }
+    if (isNaN(parseFloat(student.studentId)) == true) {
+        alert("Student ID must be a number");
+        return;
+    }
+    if (student.firstName.length < 1 || student.firstName.length > 32) {
+        alert("First name must be greater than 0 characters and less than 32 characters")
+        return;
+    }
+    if (student.lastName.length < 1 || student.lastName.length > 32) {
+        alert("Last name must be greater than 0 characters and less than 32 characters")
+        return;
+    }
+    if (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(student.email) == false) {
+        alert("Not a valid email\n");
+        return;
+    }
+
+    if (student.major.length < 1 || student.major.length > 64) {
+        alert("Major must be greater than 0 characters and less than 64 characters");
+        return;
+    }
+    if (student.gpa.length == 0) {
+        alert("Must enter a GPA");
+        return;
+    }
+    if (isNaN(parseFloat(student.gpa)) == true) {
+        alert("GPA must be a number");
+        return;
+    }
+    if (parseFloat(student.gpa) < 0.0){
+        alert("GPA must be greater than 0.0");
+        return;
+    }
+    if (parseFloat(student.gpa) > 4.0){
+        alert("GPA must be less than 4.0");
+        return;
+    }
+    if (student.graduationDate.length < 1 || student.graduationDate.length > 64) {
+        alert("Graduation date must be greater than 0 characters and less than 64 characters");
+        return;
+    }
+    if(student.password.length < 1 || student.password.length > 64) {
+        alert("Password must be greater than 0 characters and less than 64 characters");
+        return;
+    }
+
     var onSuccess = function(data) {
         console.log(data);
-        $(e.target.parentElement).hide();
-        $('.gui').show();
+
+        if(data.status === -1) {
+            alert("Duplicate student profile!");
+        }
+        else {
+            $(e.target.parentElement).hide();
+            $('.gui').show();
+        }
     };
 
-    var onFailure = function() {
+    var onFailure = function(data) {
         console.log("POST request failed\n");
     };
     makePostRequest("api/student", student, onSuccess, onFailure);
@@ -75,17 +171,32 @@ var addCourse = function (e) {
     course.title = $('.course-name-input').val();
     course.description = $('.course-idk-input').val();
 
+    if (course.courseName.length < 1 || course.courseName.length > 64) {
+        alert("Course name must be greater than 0 characters and less than 64 characters");
+        return;
+    }
+    if (course.title.length < 1 || course.title.length > 64) {
+        alert("Course title must be greater than 0 characters and less than 64 characters");
+        return;
+    }
+    if (course.courseName.length < 1 || course.courseName.length > 612) {
+        alert("Course name must be greater than 0 characters and less than 612 characters");
+        return;
+    }
+
     var onSuccess = function (data) {
-        $('.instructor-add-course').hide();
-        //$('.instructor-display-ta-applications').show();
-        //$('.view-courses').show();
         
-        showInstructorCurrentApplications();
-        displayCourses();
-        //idk dont rly need nuffin
+        if(data.status === -1) {
+            alert("Duplicate course!");
+        }
+        else {
+            $('.instructor-add-course').hide();
+            showInstructorCurrentApplications();
+            displayCourses();
+        }
     }
     var onFailure = function() {
-        //idk dont rly need nuffin
+       console.log("POST request failed\n");
     }
     makePostRequest('api/addcourse', course, onSuccess, onFailure);
 }
@@ -97,6 +208,21 @@ var login = function(e) {
 	data.username = $('.login-username').val();
 	data.userType = $('.user-type').val();
 	data.password = $('.login-password').val();
+
+    if(data.username.length < 1) {
+        alert("Enter a username");
+        return;
+    }
+
+    if(data.userType == null) {
+        alert("Select a user type");
+        return;
+    }
+
+    if(data.password.length < 1) {
+        alert("Enter a password");
+        return;
+    }
 
     var onSuccess = function (data) {
         $(e.target.parentElement).hide();
@@ -154,13 +280,47 @@ var studentEditSubmit = function(e) {
     newData.gpa = $(".edit-gpa").val();
     newData.graduationDate = $(".edit-graduation-date").val();
 
+    if(newData.email.length > 0) {
+        if (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(newData.email) == false) {
+            alert("Not a valid email\n");
+            return;
+        }
+    }
+
+    if(newData.gpa.length > 0) {
+        if (isNaN(parseFloat(newData.gpa)) == true) {
+            alert("GPA must be a number");
+            return;
+        }
+    }
+
+    if(newData.gpa.length > 0) {
+        if (parseFloat(newData.gpa) < 0.0){
+            alert("GPA must be greater than 0.0");
+            return;
+        }
+    }
+
+    if(newData.gpa.length > 0) {
+        if (parseFloat(newData.gpa) > 4.0){
+            alert("GPA must be less than 4.0");
+            return;
+        }
+    }
+    
     var onSuccess = function(data) {
         console.log(data);
-        $('.edit-student-profile').hide();
-        goBackToStudentPage();
+
+        if(data.status === -1) {
+            alert("Duplicate student email!");
+        }
+        else {
+            $('.edit-student-profile').hide();
+            goBackToStudentPage();
+        }      
     }
     var onFailure = function() {
-
+        alert("POST Request failed");
     }
 
     makePostRequest("api/edit_student", newData, onSuccess, onFailure);
@@ -173,15 +333,38 @@ var instructorEditSubmit = function(e) {
     newData.phone = $(".edit-phone").val();
     newData.office = $(".edit-office").val();
     
+    if(newData.email.length > 0) {
+        if (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(newData.email) == false) {
+            alert("Not a valid email (Please enter in form XXXX@XXXX.XXX)\n");
+            return;
+        }
+    }
+    if(newData.phone.length > 0) {
+        
+        if(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(newData.phone) == false) {
+            alert("Not a valid phone number (Please enter in form XXX-XXX-XXXX)");
+            return;
+        }
+    }
+    if(newData.office.length > 0) {
+        if (newData.office.length < 1 || newData.office.length > 32) {
+            alert("Office must be greater than 0 characters and less than 32 characters");
+            return;
+        }
+    }
     
     var onSuccess = function(data) {
         console.log(data);
-        goBackToInstructorPage();
 
-        //$('.gui').show();
+        if(data.status === -1) {
+            alert("Duplicate instructor email!");
+        }
+        else {
+            goBackToInstructorPage();
+        }
     }
     var onFailure = function() {
-
+        alert("POST Request failed");
     }
 
     makePostRequest("api/edit_instructor", newData, onSuccess, onFailure);
@@ -193,6 +376,16 @@ var submitNewPassword = function(e) {
     postData.password = $('.old-password').val();
     postData.newPassword = $('.new-password').val();
     postData.confirmNewPassword = $('.confirm-new-password').val();
+
+    if(postData.newPassword.length < 1 || postData.newPassword.length > 64) {
+        alert("New password must be greater than 0 characters and less than 64 characters");
+        return;
+    }
+
+    if(postData.confirmPassword.length < 1 || postData.confirmPassword.length > 64) {
+        alert("Confirmed new password must be greater than 0 characters and less than 64 characters");
+        return;
+    }
 
     var onSuccess = function(data) {
         console.log(data)
@@ -225,6 +418,27 @@ var submitTAPosition = function(e) {
     
     postData.studentSemesterTaken = $('.ta-application-season-input').val() + " " + $('.ta-application-year-input').val();
     
+    if (isNaN(parseFloat(postData.facultyId)) == true) {
+        alert("Faculty ID must be a number");
+        return;
+    }
+    if (postData.facultyId.length != 10) {
+        alert("Faculty ID must be 10 characters");
+        return;
+    }
+    if (postData.courseName.length < 1 || postData.courseName.length > 32) {
+        alert("Course name must be greater than 0 characters and less than 32 characters");
+        return;
+    }
+    if (postData.studentGrade <= 2) {
+        alert("Student grade must be less than or equal to 2 characters");
+        return;
+    }
+    if (postData.studentSemesterTaken < 1 || postData.studentSemesterTaken > 10) {
+        alert("Semester taken must be greater than 0 characters or less than 10 characters");
+        return;
+    }
+
 
     if($('.ta-application-grade-input').val() === "true") {
         postData.priorTA = true;
@@ -234,14 +448,19 @@ var submitTAPosition = function(e) {
     }
 
     var onSuccess = function (data) {
-        goBackToStudentPage();
-        console.log(data);
 
-        showCurrentTAApplications();
-        showAllTAPositions();       
+        console.log(data);
+        if(data.status === -1) {
+            alert("Duplicate ta application!");
+        } 
+        else {
+            goBackToStudentPage();
+            showCurrentTAApplications();
+            showAllTAPositions(); 
+        }   
     }
     var onFailure = function() {
-
+        alert("POST Request failed");
     }
 
     makePostRequest('api/submit-ta-application', postData, onSuccess, onFailure);

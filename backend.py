@@ -3,7 +3,7 @@ from flask_session import Session
 from flask_cors import CORS, cross_origin
 from werkzeug.security import generate_password_hash, check_password_hash
 import flask_sqlalchemy as sqlalchemy
-
+from sqlalchemy import or_
 import datetime
 
 app = Flask(__name__)
@@ -74,11 +74,18 @@ def createStudent():
 	student.gpa = payload['gpa']
 	student.graduationDate = payload['graduationDate']
 
-	student.passwordHash = generate_password_hash(payload['password'])
+	duplicate = Student.query.filter_by(email=student.email).first()
 
-	print(check_password_hash(student.passwordHash, payload['password']))
-	print(student.email)
-	print(payload['password'])
+	if duplicate is not None:
+		return jsonify({"status": -1, "message": "duplicate student"}), 200
+
+	duplicate = Student.query.filter_by(studentId=student.studentId).first()
+
+	if duplicate is not None:
+		return jsonify({"status": -1, "message": "duplicate student"}), 200
+
+
+	student.passwordHash = generate_password_hash(payload['password'])
 	
 	db.session.add(student)
 	db.session.commit()
@@ -104,6 +111,17 @@ def createInstructor():
 
 	instructor.passwordHash = generate_password_hash(payload['password'])
 
+	duplicate = Instructor.query.filter_by(email=instructor.email).first()
+
+	if duplicate is not None:
+		return jsonify({"status": -1, "message": "duplicate instructor"}), 200
+
+	duplicate = Instructor.query.filter_by(facultyId=instructor.facultyId).first()
+
+	if duplicate is not None:
+		return jsonify({"status": -1, "message": "duplicate instructor"}), 200
+
+
 
 	db.session.add(instructor);
 	db.session.commit();
@@ -128,6 +146,11 @@ def addCourse():
 	course.facultyId = Instructor.query.filter_by(id=session['userId']).first().facultyId
 	course.instructor = Instructor.query.filter_by(id=session['userId']).first().lastName
 	course.instructor += " ," + Instructor.query.filter_by(id=session['userId']).first().firstName
+
+	duplicate = Course.query.filter_by(courseName=course.courseName).filter_by(facultyId=course.facultyId).first();
+
+	if duplicate is not None:
+		return jsonify({"status": -1, "message": "duplicate course"}), 200
 
 	db.session.add(course)
 	db.session.commit()
@@ -252,6 +275,12 @@ def addTAApplication():
 	taApplication.studentSemesterTaken = payload['studentSemesterTaken']
 	taApplication.priorTA = payload['priorTA']
 
+	duplicate = TAApplication.query.filter_by(studentId=taApplication.studentId).filter_by(facultyId=taApplication.facultyId).filter_by(courseName=taApplication.courseName).first()
+
+
+	if duplicate is not None:
+		return jsonify({"status": -1, "message": "duplicate ta application"}), 200
+
 	db.session.add(taApplication)
 
 	db.session.commit();
@@ -324,6 +353,10 @@ def editStudent():
 	row = Student.query.filter_by(id=session['userId']).first()
 	payload = request.get_json();
 
+	duplicate = Student.query.filter_by(email=payload['email']).first()
+
+	if duplicate is not None:
+		return jsonify({"status": -1, "message": "duplicate student email"}), 200
 
 	if(payload['email'] != ""):
 		row.email = payload['email']
@@ -342,6 +375,11 @@ def editStudent():
 def editInstructor():
 	row = Instructor.query.filter_by(id=session['userId']).first()
 	payload = request.get_json();
+
+	duplicate = Instructor.query.filter_by(email=payload['email']).first()
+
+	if duplicate is not None:
+		return jsonify({"status": -1, "message": "duplicate instructor email"}), 200
 
 	if(payload['email'] != ""):
 		row.email = payload['email']
