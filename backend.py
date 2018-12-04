@@ -407,6 +407,7 @@ def row_to_obj_course(row):
 	row = {
 			"id": row.id,
 			"course_name": row.courseName,
+			"faculty_id": row.facultyId,
 			"title": row.title,
 			"description": row.description,
 			"instructor": row.instructor

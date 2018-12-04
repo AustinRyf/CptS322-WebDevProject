@@ -151,11 +151,12 @@ var Frontend = (function() {
     var insertTAPosition = function(course) {
 
         var newElement = $(allTAApplicationsTemplateHTML);
+
         
         newElement.attr('id', course.id);
         newElement.find('.student-ta-position-course-name').text(course.course_name);
         newElement.find('.student-ta-position-instructor').text(course.instructor);
-        newElement.find('.student-ta-position-instructor-id').text(course.student_grade);
+        newElement.find('.student-ta-position-instructor-id').text(course.faculty_id);
 
         allTAApplications.append(newElement);
     }
