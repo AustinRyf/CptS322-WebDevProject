@@ -817,15 +817,15 @@ var Frontend = (function() {
 
         console.log("hi");
 
-        //if(postData.newPassword.length < 1 || postData.newPassword.length > 64) {
-        //    alert("New password must be greater than 0 characters and less than 64 characters");
-        //    return;
-        //}
+        if (postData.newPassword.length < 1 || postData.newPassword.length > 64) {
+            alert("New password must be greater than 0 characters and less than 64 characters");
+            return;
+        }
 
-        //if(postData.confirmPassword.length < 1 || postData.confirmPassword.length > 64) {
-        //    alert("Confirmed new password must be greater than 0 characters and less than 64 characters");
-        //    return;
-        //}
+        if (postData.confirmNewPassword.length < 1 || postData.confirmNewPassword.length > 64) {
+            alert("Confirmed new password must be greater than 0 characters and less than 64 characters");
+            return;
+        }
 
         var onSuccess = function(data) {
             console.log(data)
