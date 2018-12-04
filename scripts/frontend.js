@@ -918,11 +918,14 @@ var Frontend = (function() {
 
     var instructorApproveApplication = function(e) {
         var applicationId = $(e.target).parents('.ta-application-instructor').attr('id');
-
+        
         console.log(e.target.parentElement);
-        var onSuccess = function(data) {
-            $('.instructor-display-ta-applications').hide();
-            $('.gui').show();
+        var onSuccess = function (data) {
+            console.log("Accepted");
+            showInstructorCurrentApplications();  //reject/accept
+            displayCourses(); //display all posted courses
+            $('.instructor-display-ta-applications').show();
+            //$('.gui').show();
         }
         var onFailure = function() {
             alert("unable to approve application");
@@ -933,10 +936,13 @@ var Frontend = (function() {
 
     var instructorRejectApplication = function(e) {
         var applicationId = $(e.target).parents('.ta-application-instructor').attr('id');
-
-        var onSuccess = function(data) {
-            $('.instructor-display-ta-applications').hide();
-            $('.gui').show();
+        
+        var onSuccess = function (data) {
+            console.log("Rejected");
+            showInstructorCurrentApplications();  //reject/accept
+            displayCourses(); //display all posted courses
+            //$('.instructor-display-ta-applications').hide();
+            //$('.gui').show();
         }
         var onFailure = function() {
             alert("unable to reject application");
